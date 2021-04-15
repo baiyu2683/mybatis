@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zh.mapper.AuthorMapper">
+
+    <sql id="allColumns">${table}.id, ${table}.username, ${table}.password, ${table}.email, ${table}.bio</sql>
+    <sql id="noIdColumns">${table}.username, ${table}.password, ${table}.email, ${table}.bio</sql>
+
+    <select id="selectAll" resultType="author">
+        select
+        <include refid="allColumns">
+            <property name="table" value="Author"/>
+        </include>
+        from Author
+    </select>
+
+    <!--useGeneratedKeys="true" keyProperty="id" 将自增id自动设置到参数对象上 -->
+    <insert id="insert" parameterType="author" useGeneratedKeys="true" keyProperty="id">
+        insert into Author(<include refid="noIdColumns"/>)
+        values (#{username}, #{password}, #{email}, #{bio})
+    </insert>
+
+    <delete id="deleteById" parameterType="long">
+        delete from Author where id = #{id}
+    </delete>
+
+</mapper>
