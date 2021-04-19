@@ -5,7 +5,7 @@
 <mapper namespace="com.zh.mapper.AuthorMapper">
 
     <sql id="allColumns">${table}.id, ${table}.username, ${table}.password, ${table}.email, ${table}.bio</sql>
-    <sql id="noIdColumns">${table}.username, ${table}.password, ${table}.email, ${table}.bio</sql>
+    <sql id="noIdColumns">username, password, email, bio</sql>
 
     <select id="selectAll" resultType="author">
         select
@@ -14,11 +14,45 @@
         </include>
         from Author
     </select>
+    
+    <resultMap id="authorMap" type="author">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password" />
+        <result property="email" column="email" />
+        <result property="bio" column="bio" />
+    </resultMap>
+    
+    <!-- 使用resultMap -->
+    <select id="selectAllResultMap" resultMap="authorMap">
+        select
+        <include refid="allColumns">
+            <property name="table" value="Author"/>
+        </include>
+        from Author
+    </select>
+
+    <select id="select" resultType="author">
+        select
+        <include refid="allColumns">
+            <property name="table" value="Author"/>
+        </include>
+        from Author
+        where username=#{username} and password=#{password}
+    </select>
 
     <!--useGeneratedKeys="true" keyProperty="id" 将自增id自动设置到参数对象上 -->
     <insert id="insert" parameterType="author" useGeneratedKeys="true" keyProperty="id">
         insert into Author(<include refid="noIdColumns"/>)
         values (#{username}, #{password}, #{email}, #{bio})
+    </insert>
+
+    <insert id="insertAll" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        insert into Author(<include refid="noIdColumns"/>)
+        values
+        <foreach item="item" collection="list" separator=",">
+            (#{item.username}, #{item.password}, #{item.email}, #{item.bio})
+        </foreach>
     </insert>
 
     <delete id="deleteById" parameterType="long">

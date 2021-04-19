@@ -2,12 +2,54 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.mybatis.mapper.BlogMapper">
-    <select id="selectBlog" resultType="blog">
-        select id, Salary from Blog where id = #{id}
+<mapper namespace="com.zh.mapper.BlogMapper">
+
+    <!-- 使用select关联，自动映射嵌套的author属性 -->
+    <!-- 问题： 多执行了一条sql语句，性能稍差 -->
+    <resultMap id="blogResultMap" type="blog">
+        <id column="id" property="id"/>
+        <result property="title" column="title"/>
+        <association property="author" column="authorId" select="selectById"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="blogResultMap">
+        select id, title, authorId
+        from Blog
     </select>
 
-    <insert id="insertBlog" parameterType="blog">
-        insert into Au
-    </insert>
+    <select id="selectById" resultType="author">
+        select id, username, password, email, bio
+        from Author
+        where id = #{id}
+    </select>
+
+
+    <!--使用关联嵌套映射结果，减少sql语句条数-->
+    <resultMap id="blogAuthorResultMap" type="blog">
+        <id column="id" property="id"/>
+        <result property="title" column="title"/>
+        <association property="author" column="authorId" resultMap="authorResult"/>
+    </resultMap>
+    <resultMap id="authorResult" type="author">
+        <id property="id" column="author_id"/>
+        <result property="username" column="author_username"/>
+        <result property="password" column="author_password" />
+        <result property="email" column="author_email" />
+        <result property="bio" column="author_bio" />
+    </resultMap>
+    <select id="selectAllBlogAuthorResultMap" resultMap="blogAuthorResultMap">
+        select
+               Blog.id,
+               Blog.title,
+               Author.id as author_id,
+               Author.username as author_username,
+               Author.password as author_password,
+               Author.email as author_email,
+               Author.bio as author_bio
+        from Blog
+        left join Author
+        on Blog.authorId = Author.id
+    </select>
+
+
 </mapper>

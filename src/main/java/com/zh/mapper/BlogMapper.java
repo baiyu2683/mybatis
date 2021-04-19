@@ -1,23 +1,11 @@
 package com.zh.mapper;
 
-public class BlogMapper {
+import com.zh.entity.Blog;
 
-    private Long id;
-    private Long salary;
+import java.util.List;
 
-    public Long getId() {
-        return id;
-    }
+public interface BlogMapper {
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Long salary) {
-        this.salary = salary;
-    }
+    List<Blog> selectAll();
+    List<Blog> selectAllBlogAuthorResultMap();
 }
