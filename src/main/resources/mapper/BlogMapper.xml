@@ -51,5 +51,42 @@
         on Blog.authorId = Author.id
     </select>
 
+    <!-- 使用collection进行一对多的select映射 -->
+    <resultMap id="blogPostsResultMap" type="blog">
+        <id column="id" property="id"/>
+        <result property="title" column="title"/>
+        <collection property="posts" column="id" ofType="post" select="selectPostById"/>
+    </resultMap>
+    <select id="selectPostById" resultType="post">
+        select id, subject, body, blog_id
+        from Post
+        where blog_id = #{id}
+    </select>
+    <select id="selectBlogPostsResultMap" resultMap="blogPostsResultMap">
+        select * from Blog
+    </select>
+
+    <!-- 使用collection进行一对多的嵌套映射 -->
+    <resultMap id="blogPostsResultMap2" type="blog">
+        <id column="id" property="id"/>
+        <result property="title" column="title"/>
+        <collection property="posts" column="id" ofType="post">
+            <id property="id" column="post_id"/>
+            <result property="subject" column="post_subject"/>
+            <result property="body" column="post_body"/>
+            <result property="blogId" column="post_blog_id"/>
+        </collection>
+    </resultMap>
+    <select id="selectBlogPostsResultMap2" resultMap="blogPostsResultMap2">
+        select Blog.id,
+               Blog.title,
+               Post.id as post_id,
+               Post.subject as post_subject,
+               Post.body as post_body,
+               Post.blog_id as post_blog_id
+        from Blog
+        left join Post
+        on Blog.id = Post.blog_id
+    </select>
 
 </mapper>
