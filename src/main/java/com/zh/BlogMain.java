@@ -17,14 +17,14 @@ public class BlogMain {
         SqlSession session = sqlSessionFactory.openSession();
         BlogMapper blogMapper = session.getMapper(BlogMapper.class);
 
-//        List<Blog> list = blogMapper.selectAll();
-//        System.out.println(list.size());
+        List<Blog> list = blogMapper.selectAll();
+        System.out.println(list.size());
 
 //        List<Blog> list = blogMapper.selectAllBlogAuthorResultMap();
 
 //        List<Blog> list1 = blogMapper.selectBlogPostsResultMap();
 
-        List<Blog> list2 = blogMapper.selectBlogPostsResultMap2();
+//        List<Blog> list2 = blogMapper.selectBlogPostsResultMap2();
 
 
         session.commit();
