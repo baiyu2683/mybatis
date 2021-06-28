@@ -44,10 +44,10 @@ public class App
 //            System.out.println(author.getId());
 //        }
 
-        List<Author> authors = authorMapper.selectAllResultMap();
-        for (Author author : authors) {
-            System.out.println(author.getId());
-        }
+//        List<Author> authors = authorMapper.selectAllResultMap();
+//        for (Author author : authors) {
+//            System.out.println(author.getId());
+//        }
 
         session.close();
     }
