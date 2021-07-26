@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zh.mapper.BlogMapper">
 
-    <cache type="org.mybatis.caches.redis.RedisCache"/>
+<!--    <cache type="org.mybatis.caches.redis.RedisCache"/>-->
 
     <!-- 使用select关联，自动映射嵌套的author属性 -->
     <!-- 问题： 多执行了一条sql语句，性能稍差 -->

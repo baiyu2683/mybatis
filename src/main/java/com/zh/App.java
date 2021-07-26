@@ -39,10 +39,10 @@ public class App
 //        authorMapper.insertAll(authorList);
 //        session.commit();
 
-//        List<Author> authors = authorMapper.select("1234", "myName");
-//        for (Author author : authors) {
-//            System.out.println(author.getId());
-//        }
+        List<Author> authors = authorMapper.select("1234", "myName");
+        for (Author author : authors) {
+            System.out.println(author.getId());
+        }
 
 //        List<Author> authors = authorMapper.selectAllResultMap();
 //        for (Author author : authors) {

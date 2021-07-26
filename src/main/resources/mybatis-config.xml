@@ -35,6 +35,9 @@
     <typeHandlers>
         <typeHandler handler="com.zh.typehandler.VarcharTypeHandler" jdbcType="VARCHAR" javaType="string"/>
     </typeHandlers>
+    <plugins>
+        <plugin interceptor="com.zh.interceptor.SQLLogInterceptor"/>
+    </plugins>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
