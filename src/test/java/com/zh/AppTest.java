@@ -15,6 +15,6 @@ public class AppTest
     @Test
     public void shouldAnswerWithTrue()
     {
-        System.out.println(Runtime.getRuntime().availableProcessors());
+        System.out.println(AppTest.class.getSimpleName());
     }
 }

@@ -25,7 +25,6 @@
         where id = #{id}
     </select>
 
-
     <!--使用关联嵌套映射结果，减少sql语句条数-->
     <resultMap id="blogAuthorResultMap" type="blog">
         <id column="id" property="id"/>
@@ -51,6 +50,21 @@
         from Blog
         left join Author
         on Blog.authorId = Author.id
+    </select>
+
+    <select id="page" resultMap="blogAuthorResultMap">
+        select
+            Blog.id,
+            Blog.title,
+            Author.id as author_id,
+            Author.username as author_username,
+            Author.password as author_password,
+            Author.email as author_email,
+            Author.bio as author_bio
+        from Blog
+        left join Author
+        on Blog.authorId = Author.id
+        where Author.id = #{authorId}
     </select>
 
     <!-- 使用collection进行一对多的select映射 -->

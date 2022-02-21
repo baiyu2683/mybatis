@@ -35,15 +35,22 @@ public class SQLLogInterceptor implements Interceptor {
             BoundSql boundSql = mappedStatement.getBoundSql(parameter);
             String sql = boundSql.getSql();
             List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
-            MapperMethod.ParamMap parameterObject = (MapperMethod.ParamMap) boundSql.getParameterObject();
-            List<Object> parameterValue = new ArrayList<>(parameterObject.size());
-            for (ParameterMapping parameterMapping : parameterMappings) {
-                parameterValue.add(parameterObject.get(parameterMapping.getProperty()));
-            }
+
             String sqlTemplate = sql.replace("?", "'%s'") // 问号替换字符串模板符号
                     .replace("\n", "") // 去掉换行符
                     .replaceAll(" +", " "); // 多个连续空格改成一个空格
-            System.out.println(String.format(sqlTemplate, parameterValue.toArray()));
+
+            MapperMethod.ParamMap parameterObject = (MapperMethod.ParamMap) boundSql.getParameterObject();
+            if (parameterObject != null) {
+                List<Object> parameterValue = new ArrayList<>(parameterObject.size());
+                for (ParameterMapping parameterMapping : parameterMappings) {
+                    parameterValue.add(parameterObject.get(parameterMapping.getProperty()));
+                }
+                System.out.println(String.format(sqlTemplate, parameterValue.toArray()));
+            } else {
+                System.out.println(sqlTemplate);
+            }
+
         }
         return invocation.proceed();
     }

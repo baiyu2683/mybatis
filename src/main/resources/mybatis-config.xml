@@ -11,7 +11,7 @@
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
     </properties>
     <settings>
-        <setting name="cacheEnabled" value="true"/>
+        <!--<setting name="cacheEnabled" value="true"/>-->
         <setting name="lazyLoadingEnabled" value="true"/>
         <setting name="multipleResultSetsEnabled" value="true"/>
         <setting name="useColumnLabel" value="true"/>
@@ -35,9 +35,9 @@
     <typeHandlers>
         <typeHandler handler="com.zh.typehandler.VarcharTypeHandler" jdbcType="VARCHAR" javaType="string"/>
     </typeHandlers>
-    <plugins>
+    <!--<plugins>
         <plugin interceptor="com.zh.interceptor.SQLLogInterceptor"/>
-    </plugins>
+    </plugins>-->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
