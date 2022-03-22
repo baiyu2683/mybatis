@@ -12,7 +12,10 @@
     </properties>
     <settings>
         <!--<setting name="cacheEnabled" value="true"/>-->
+        <!-- 开启懒加载 -->
         <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 如果有多个懒加载属性，当这个为true时，加载某一个懒加载属性，则所有懒加载属性都会加载。如果为false,加载某一个，就只加载这一个-->
+        <setting name="aggressiveLazyLoading" value="false"/>
         <setting name="multipleResultSetsEnabled" value="true"/>
         <setting name="useColumnLabel" value="true"/>
         <setting name="useGeneratedKeys" value="false"/>
@@ -27,6 +30,8 @@
         <setting name="localCacheScope" value="SESSION"/>
         <setting name="jdbcTypeForNull" value="OTHER"/>
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <!-- 打印sql -->
+        <setting name="logImpl" value="LOG4J" />
     </settings>
     <typeAliases>
         <package name="com.zh.entity"/>

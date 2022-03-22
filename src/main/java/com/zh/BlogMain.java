@@ -31,7 +31,7 @@ public class BlogMain {
 
 //        List<Blog> list2 = blogMapper.selectBlogPostsResultMap2();
 
-        List<Blog> page = blogMapper.page(1, new RowBounds(0, 10));
+        List<Blog> page = blogMapper.page(2, new RowBounds(0, 10));
 
         session.commit();
         session.close();
